@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine Cho Bé</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(to bottom, #ffcccc, #ffe6e6);
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin-top: 100px;
+        }
+        h1, h2 {
+            color: #ff4d4d;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            margin: 10px;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #e63939;
+        }
+        input {
+            padding: 10px;
+            margin-top: 10px;
+        }
+        img {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Trang đầu -->
+    <div id="page1" class="container">
+        <h1>Will you be my Valentine?</h1>
+        <img src="https://i.postimg.cc/3w5LKcbC/image.png" alt="Hình Valentine" style="width: 200px;">
+        <br>
+        <button onclick="goToPage(2)">Có</button>
+        <button onclick="goToPage(2)">Có lun</button>
+    </div>
+
+    <!-- Trang thứ hai -->
+    <div id="page2" class="container" style="display: none;">
+        <h1>Bé muốn đi ăn gì?</h1>
+        <button onclick="selectFood('Hanuri')">Hanuri</button>
+        <button onclick="selectFood('Kokoria')">Kokoria</button>
+        <button onclick="selectFood('Jollibee')">Jollibee</button>
+        <button onclick="selectFood('Steak')">Steak</button>
+        <br>
+        <input type="text" id="customFood" placeholder="Món tự chọn..." style="padding: 10px; margin-top: 10px;">
+        <br>
+        <button onclick="selectCustomFood()">Xác nhận</button>
+    </div>
+
+    <!-- Trang thứ ba -->
+    <div id="page3" class="container" style="display: none;">
+        <h1>Bé ơi ăn xong đi đâu?</h1>
+        <button onclick="selectActivity('Coi phim')">Coi phim</button>
+        <button onclick="selectActivity('Đi dạo công viên')">Đi dạo công viên</button>
+        <button onclick="selectActivity('Đi chơi linh tinh')">Đi chơi linh tinh</button>
+    </div>
+
+    <!-- Trang cảm ơn -->
+    <div id="page4" class="container" style="display: none;">
+        <h1>Cảm ơn bé đã iu tớ, mình chính thức iu nhaaa!</h1>
+        <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbTFzbGtydzVvNHc4YWhnNmVhcHhjaDhqNWJ3NzR5NWo1bWwzb2JqcSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/UQ7GLVB8NlTLOHjC3t/giphy.gif" alt="Bông hoa nở đẹp" style="width: 200px;">
+        <img src="https://i.postimg.cc/FKNjC5Bq/image.png" alt="Bông hoa nở đẹp" style="width: 200px;">
+        <form action="https://formspree.io/f/xwpvqbjy" method="POST" id="thankYouForm">
+            <input type="hidden" name="food" id="formFood">
+            <input type="hidden" name="activity" id="formActivity">
+            <p>bé bấm vào đây nkaaaankaaaa:</p>
+            <button type="submit">Đồng ý</button>
+        </form>
+    </div>
+
+    <script>
+        let selectedFood = '';
+        let selectedActivity = '';
+
+        // Chuyển đến trang cụ thể
+        function goToPage(pageNumber) {
+            const pages = ["page1", "page2", "page3", "page4"];
+            pages.forEach(page => document.getElementById(page).style.display = "none");
+            document.getElementById(`page${pageNumber}`).style.display = "block";
+        }
+
+        // Lưu món ăn đã chọn và chuyển đến trang 3
+        function selectFood(food) {
+            selectedFood = food;
+            goToPage(3);
+        }
+
+        // Lưu món ăn tự chọn và chuyển đến trang 3
+        function selectCustomFood() {
+            const customFood = document.getElementById('customFood').value;
+            selectedFood = customFood || 'Không chọn gì';
+            goToPage(3);
+        }
+
+        // Lưu hoạt động đã chọn, cập nhật form và chuyển đến trang 4
+        function selectActivity(activity) {
+            selectedActivity = activity;
+            document.getElementById('formFood').value = selectedFood;
+            document.getElementById('formActivity').value = selectedActivity;
+            goToPage(4);
+        }
+    </script>
+</body>
+</html>
