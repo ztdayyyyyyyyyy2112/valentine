@@ -11,6 +11,7 @@
             background: linear-gradient(to bottom, #ffcccc, #ffe6e6);
             margin: 0;
             padding: 0;
+            overflow: hidden;
         }
         .container {
             margin-top: 100px;
@@ -38,9 +39,28 @@
         img {
             margin-top: 20px;
         }
+
+        /* Hiệu ứng trái tim rơi */
+        .heart {
+            position: absolute;
+            color: red;
+            font-size: 20px;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
+
     <!-- Trang đầu -->
     <div id="page1" class="container">
         <h1>Will you be my Valentine?</h1>
@@ -72,14 +92,13 @@
     </div>
 
     <!-- Trang cảm ơn -->
-    <div id="page4" class="container" style="display: none;">
-        <h1>Thanks for being my valentine, will you be mine truly and completely ?</h1>
-        <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbTFzbGtydzVvNHc4YWhnNmVhcHhjaDhqNWJ3NzR5NWo1bWwzb2JqcSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/UQ7GLVB8NlTLOHjC3t/giphy.gif" alt="Bông hoa nở đẹp" style="width: 200px;">
-        <img src="https://i.postimg.cc/FKNjC5Bq/image.png" alt="Bông hoa nở đẹp" style="width: 200px;">
+    <div id="page4" class="container" style="display: none;"><h1>Thanks for being my valentine, will you be mine truly and completely?</h1>
+        <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbTFzbGtydzVvNHc4YWhnNmVhcHhjaDhqNWJ3NzR5NWo1bWwzb2JqcSZlcD12MV9pbnRlcm5naWZfYnlfaWQmY3Q9Zw/UQ7GLVB8NlTLOHjC3t/giphy.gif" alt="Bông hoa nở đẹp" style="width: 200px;">
+        <img src="https://i.postimg.cc/FKNjC5Bq/image.png" alt="Bông hoa nở đẹp" style="width: 200px;"> 
         <form action="https://formspree.io/f/xwpvqbjy" method="POST" id="thankYouForm">
             <input type="hidden" name="food" id="formFood">
             <input type="hidden" name="activity" id="formActivity">
-            <p>bé bấm vào đây nkaaaankaaaa:</p>
+            <p>Bé bấm vào đây nkaaaankaaaa:</p>
             <button type="submit">Đồng ý</button>
         </form>
     </div>
@@ -115,6 +134,29 @@
             document.getElementById('formActivity').value = selectedActivity;
             goToPage(4);
         }
+
+        // Tạo hiệu ứng trái tim rơi
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.innerHTML = "❤️";
+            heart.classList.add("heart");
+            document.body.appendChild(heart);
+
+            // Thiết lập vị trí ngẫu nhiên
+            heart.style.left = Math.random() * window.innerWidth + "px";
+            heart.style.top = "-10px";
+            heart.style.fontSize = Math.random() * 20 + 10 + "px";
+            heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+
+            // Xóa trái tim sau khi rơi xong
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        // Tạo trái tim rơi liên tục
+        setInterval(createHeart, 300);
     </script>
+
 </body>
 </html>
